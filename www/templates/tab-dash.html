@@ -1,0 +1,31 @@
+<ion-view view-title="Dashboard" view-title="false" hide-nav-bar="true">
+    <ion-header-bar class="bar" ng-style="{'background-color':latestReading.colour}"ionoc>
+        <h2 class="title">
+            Updated: {{lastRefresh | date:'medium'}}
+        </h2>
+        <button class="button button-clear" ng-click="showFilters()">
+            <i class="icon ion-funnel"></i>
+        </button>
+    </ion-header-bar>
+  <ion-content class="padding  has-tabs-bottom">
+      <h2></h2>
+      <img ng-src="{{imageUrl}}" style="width:100%"/>
+      <ul class="list">
+          <a class="item item-icon-right" href="#" ng-repeat="row in rows" ng-style="{'background-color':row.colour}">
+                  <h2>{{row.time}}(UT)</h2>
+                  <h4>{{row.date | date:'medium'}}</h4>
+                <span class="item-note value">
+                <h1>{{row.value}}uT</h1>
+                </span>
+          </a>
+      </ul>
+  </ion-content>
+</ion-view>
+
+<style>
+    .value{
+        position:absolute;
+        left:60%;
+        top  :16px;
+    }
+</style>

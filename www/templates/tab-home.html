@@ -1,0 +1,29 @@
+<ion-view view-title="Home" view-title="false" hide-nav-bar="true">
+    <ion-header-bar class="bar " ng-style="{'background-color':latestReading.colour}">
+        <h1 class="title" >
+            Current Aurora Status: {{latestReading.colour | uppercase}}
+        </h1>
+    </ion-header-bar>
+  <ion-content class="padding has-tabs-bottom" >
+      <div class="card" >
+          <div class="item item-divider" >
+                Disturbance Level at Station: {{latestReading.station}}
+          </div>
+          <div class="item item-text-wrap" ng-style="{'background-color':latestReading.colour}">
+              <h1>{{latestReading.value}}nT</h1>
+          </div>
+          <div class="item item-divider">
+
+              Recorded at: {{latestReading.date | date}} {{latestReading.time}} (UT)
+          </div>
+      </div>
+  </ion-content>
+</ion-view>
+
+<style>
+    .value{
+        position:absolute;
+        left:60%;
+        top  :16px;
+    }
+</style>
