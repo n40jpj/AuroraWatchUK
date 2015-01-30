@@ -2,6 +2,6 @@ cordova build --release android
 
 --keytool -genkey -v -keystore my-release-key.keystore -alias AuroraWatchUK -keyalg RSA -keysize 2048 -validity 10000
 
-jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore aurorawathchuk-release-key.keystore android-release-unsigned.apk AurorawatchUK
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore aurorawathchuk-release-key.keystore cordovaapp-release-unsigned.apk AuroraWatchUK
 Stripes7
-zipalign -v 4 android-release-unsigned.apk AuroraWatchUK.apk
+zipalign -v 4 CordovaApp-release-unsigned.apk AuroraWatchUK.apk

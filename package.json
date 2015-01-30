@@ -1,7 +1,7 @@
 {
-  "name": "aurorawatchuk",
+  "name": "AuroraWatchUK",
   "version": "1.0.0",
-  "description": "auroraWatchUK: An Ionic project",
+  "description": "AuroraWatch UK",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",

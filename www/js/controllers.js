@@ -1,7 +1,12 @@
 angular.module('auroraWatchUK.controllers', [])
     .controller('Home', function($scope, $http, $filter, $timeout, $interval) {
-        $scope.reportingUrl = "http://aurorawatch.lancs.ac.uk/win7_phone_app/rolling.txt";
+        $scope.reportingUrl = "http://aurorawatch.lancs.ac.uk/api/n40jpj.com/0.1/rolling.txt";
         function init() {
+
+            var config = {headers:  {
+                'User-Agent': 'AuroraWatch UK (n40jpj.com)'
+            }
+            };
 
             $http.get($scope.reportingUrl)
                 .then(function (results) {
@@ -18,11 +23,31 @@ angular.module('auroraWatchUK.controllers', [])
                         if (row[0].indexOf('ACTIVITY') > -1) {
                             var dateAndTimeString = row[1].split('T');
 
+                            var colour = row[3];
+
+
+                            if(colour.indexOf("green")>-1){
+                                $scope.auroraStatusColour = "Green";
+                                colour = "rgb(51, 255, 51)";
+                            }
+                            if(colour.indexOf("yellow")>-1){
+                                $scope.auroraStatusColour = "Yellow";
+                                colour = "rgb(255, 255, 0)";
+                            }
+                            if(colour.indexOf("amber")>-1){
+                                $scope.auroraStatusColour = "Amber";
+                                colour = "rgb(255, 153, 0)";
+                            }
+                            if(colour.indexOf("red")>-1){
+                                $scope.auroraStatusColour = "Red";
+                                colour = "rgb(255,0,0)";
+                            }
+
                             var activityRow = {
                                 date: $filter('date')(new Date(dateAndTimeString[0]), 'yyyy-MM-dd'),
                                 time: dateAndTimeString[1].split('+')[0],
                                 value: row[2],
-                                colour: row[3]
+                                colour: colour
                             };
                             this.push(activityRow);
                         }
@@ -48,8 +73,8 @@ angular.module('auroraWatchUK.controllers', [])
 .controller('Dash', function($scope, $http, $filter, $timeout, $interval, $ionicActionSheet) {
 
 
-        $scope.imageUrl = "http://aurorawatch.lancs.ac.uk/win7_phone_app/rolling.png";
-        $scope.reportingUrl = "http://aurorawatch.lancs.ac.uk/win7_phone_app/rolling.txt";
+        $scope.imageUrl = "http://aurorawatch.lancs.ac.uk/api/n40jpj.com/0.1/rolling.png";
+        $scope.reportingUrl = "http://aurorawatch.lancs.ac.uk/api/n40jpj.com/0.1/rolling.txt";
 
         // Triggered on a button click, or some other target
         $scope.showFilters = function () {
@@ -70,16 +95,16 @@ angular.module('auroraWatchUK.controllers', [])
                 buttonClicked: function (index) {
                     switch (index) {
                         case 0:
-                            $scope.imageUrl = "http://aurorawatch.lancs.ac.uk/win7_phone_app/rolling.png";
-                            $scope.reportingUrl = "http://aurorawatch.lancs.ac.uk/win7_phone_app/rolling.txt";
+                            $scope.imageUrl = "http://aurorawatch.lancs.ac.uk/api/n40jpj.com/0.1/rolling.png";
+                            $scope.reportingUrl = "http://aurorawatch.lancs.ac.uk/api/n40jpj.com/0.1/rolling.txt";
                             break;
                         case 1:
-                            //$scope.imageUrl = "http://aurorawatch.lancs.ac.uk/win7_phone_app/today.png";
-                            $scope.reportingUrl = "http://aurorawatch.lancs.ac.uk/win7_phone_app/today.txt";
+                            $scope.imageUrl = "http://aurorawatch.lancs.ac.uk/api/n40jpj.com/0.1/rolling.png";
+                            $scope.reportingUrl = "http://aurorawatch.lancs.ac.uk/api/n40jpj.com/0.1/today.txt";
                             break;
                         case 2:
-                            //$scope.imageUrl = "http://aurorawatch.lancs.ac.uk/win7_phone_app/yesterday.png";
-                            $scope.reportingUrl = "http://aurorawatch.lancs.ac.uk/win7_phone_app/yesterday.txt";
+                            $scope.imageUrl = "http://aurorawatch.lancs.ac.uk/api/n40jpj.com/0.1/rolling.png";
+                            $scope.reportingUrl = "http://aurorawatch.lancs.ac.uk/api/n40jpj.com/0.1/yesterday.txt";
                             break;
                     }
                     init();
@@ -91,6 +116,10 @@ angular.module('auroraWatchUK.controllers', [])
 
 
         function init() {
+            var config = {headers:  {
+                'User-Agent': 'AuroraWatch UK (n40jpj.com)'
+            }
+            };
 
             $http.get($scope.reportingUrl)
                 .then(function (results) {
@@ -104,16 +133,40 @@ angular.module('auroraWatchUK.controllers', [])
                         if (row[0].indexOf('ACTIVITY') > -1) {
                             var dateAndTimeString = row[1].split('T');
 
+                            var colour = row[3];
+
+
+                            if(colour.indexOf("green")>-1){
+                                $scope.auroraStatusColour = "Green";
+                                colour = "rgb(51, 255, 51)";
+                            }
+                            if(colour.indexOf("yellow")>-1){
+                                $scope.auroraStatusColour = "Yellow";
+                                colour = "rgb(255, 255, 0)";
+                            }
+                            if(colour.indexOf("amber")>-1){
+                                $scope.auroraStatusColour = "Amber";
+                                colour = "rgb(255, 153, 0)";
+                            }
+                            if(colour.indexOf("red")>-1){
+                                $scope.auroraStatusColour = "Red";
+                                colour = "rgb(255,0,0)";
+                            }
+
 
                             var activityRow = {
-                                date: $filter('date')(new Date(dateAndTimeString[0]), 'yyyy-MM-dd'),
+                                date: $filter('date')(new Date(dateAndTimeString), 'yyyy-MM-dd HH:mm:ss'),
+                                shortDate: $filter('date')(new Date(dateAndTimeString), 'MMM dd yyyy'),
                                 time: dateAndTimeString[1].split('+')[0],
                                 value: row[2],
-                                colour: row[3]
+                                colour: colour
                             };
                             this.push(activityRow);
                         }
                     }, $scope.rows);
+
+                    console.log($scope.rows);
+
                     $scope.lastRefresh = Date.now();
                     $scope.latestReading = $scope.rows[$scope.rows.length-1];
                 });

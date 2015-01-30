@@ -11,11 +11,11 @@
       <h2></h2>
       <img ng-src="{{imageUrl}}" style="width:100%"/>
       <ul class="list">
-          <a class="item item-icon-right" href="#" ng-repeat="row in rows" ng-style="{'background-color':row.colour}">
+          <a class="item item-icon-right" href="#" ng-repeat="row in rows | orderBy:'date':'true'" ng-style="{'background-color':row.colour}">
                   <h2>{{row.time}}(UT)</h2>
-                  <h4>{{row.date | date:'medium'}}</h4>
+                  <h4>{{row.shortDate | date:'shortDate'}}</h4>
                 <span class="item-note value">
-                <h1>{{row.value}}uT</h1>
+                <h1>{{row.value}}nT</h1>
                 </span>
           </a>
       </ul>
