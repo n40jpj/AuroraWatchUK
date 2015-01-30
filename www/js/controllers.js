@@ -61,7 +61,7 @@ angular.module('auroraWatchUK.controllers', [])
         //Put in interval, first trigger after 10 seconds
         var refreshInterval = $interval(function(){
             init();
-        }, 1800000);
+        }, 180000);
 
         //invoke initialy
         init();
@@ -165,7 +165,6 @@ angular.module('auroraWatchUK.controllers', [])
                         }
                     }, $scope.rows);
 
-                    console.log($scope.rows);
 
                     $scope.lastRefresh = Date.now();
                     $scope.latestReading = $scope.rows[$scope.rows.length-1];
@@ -175,7 +174,7 @@ angular.module('auroraWatchUK.controllers', [])
         //Put in interval, first trigger after 10 seconds
         var refreshInterval = $interval(function(){
             init();
-        }, 1800000);
+        }, 180000);
 
         //invoke initialy
         init();
